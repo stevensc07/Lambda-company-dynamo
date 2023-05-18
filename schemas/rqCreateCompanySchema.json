@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "createorUpdateCompany",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "fullName": "string",
+      "phone": "string",
+      "nit": "string",
+      "address": "string"
+    }
+  ],
+  "required": ["fullName", "phone", "nit", "address"],
+  "additionalProperties": true,
+  "properties": {
+    "fullName": {
+      "$id": "#/properties/fullName",
+      "type": "string",
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "The fullName schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": ""
+    },
+    "phone": {
+      "$id": "#/properties/phone",
+      "type": "string",
+      "maxLength": 10,
+      "minLength": 1,
+      "title": "The phone schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": ""
+    },
+    "nit": {
+      "$id": "#/properties/nit",
+      "type": "string",
+      "maxLength": 20,
+      "minLength": 1,
+      "title": "The nit schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": ""
+    },
+    "address": {
+      "$id": "#/properties/address",
+      "type": "string",
+      "maxLength": 50,
+      "minLength": 1,
+      "title": "The address schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": ""
+    }
+  }
+}

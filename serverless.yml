@@ -1,0 +1,86 @@
+org: stevensc
+app: lite-thinking-company-dynamo
+service: lite-thinking-company-dynamo
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  timeout: 180
+  memorySize: 256
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - cognito-idp:AdminInitiateAuth
+        - cognito-idp:AdminCreateUser
+        - cognito-idp:AdminSetUserPassword
+      Resource: "*"
+
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:Query
+        - dynamodb:PutItem
+        - dynamodb:Scan
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:382572906864:table/Lite-Thinking-dev"
+
+functions:
+  createCompany:
+    handler: index.createCompany
+    timeout: 180
+    memorySize: 256
+    events:
+      - http:
+          path: company
+          method: post
+          cors: true # <-- CORS!
+          authorizer:
+            name: PrivateAuthorizer
+            type: COGNITO_USER_POOLS
+            arn: arn:aws:cognito-idp:us-east-1:382572906864:userpool/us-east-1_3wxvIMG40
+
+  getCompanies:
+    handler: index.getCompanies
+    timeout: 180
+    memorySize: 256
+    events:
+      - http:
+          path: getCompanies
+          method: post
+          cors: true # <-- CORS!
+          authorizer:
+            name: PrivateAuthorizer
+            type: COGNITO_USER_POOLS
+            arn: arn:aws:cognito-idp:us-east-1:382572906864:userpool/us-east-1_3wxvIMG40
+
+  getCompany:
+    handler: index.getCompany
+    timeout: 180
+    memorySize: 256
+    events:
+      - http:
+          path: getCompany
+          method: post
+          cors: true # <-- CORS!
+          authorizer:
+            name: PrivateAuthorizer
+            type: COGNITO_USER_POOLS
+            arn: arn:aws:cognito-idp:us-east-1:382572906864:userpool/us-east-1_3wxvIMG40
+
+  deleteCompany:
+    handler: index.deleteCompany
+    timeout: 180
+    memorySize: 256
+    events:
+      - http:
+          path: deleteCompany
+          method: post
+          cors: true # <-- CORS!
+          authorizer:
+            name: PrivateAuthorizer
+            type: COGNITO_USER_POOLS
+            arn: arn:aws:cognito-idp:us-east-1:382572906864:userpool/us-east-1_3wxvIMG40
